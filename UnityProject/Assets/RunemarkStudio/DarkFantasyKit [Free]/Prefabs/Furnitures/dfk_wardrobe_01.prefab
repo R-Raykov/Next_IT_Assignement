@@ -261,7 +261,6 @@ GameObject:
   - component: {fileID: 4153928968129256}
   - component: {fileID: 33702659627431978}
   - component: {fileID: 23135002716992478}
-  - component: {fileID: 65585224625052552}
   m_Layer: 0
   m_Name: RightDoor
   m_TagString: Untagged
@@ -330,19 +329,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &65585224625052552
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1802545090086594}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.49631053, y: 1.4747835, z: 0.028785199}
-  m_Center: {x: 0.24427637, y: 0.14915693, z: -0.0011045784}
 --- !u!1 &1803435338003192
 GameObject:
   m_ObjectHideFlags: 0
@@ -354,7 +340,7 @@ GameObject:
   - component: {fileID: 4450624845743470}
   - component: {fileID: 33216015333544238}
   - component: {fileID: 23343523291170776}
-  - component: {fileID: 65490184224795520}
+  - component: {fileID: 4491505775137384581}
   m_Layer: 0
   m_Name: LeftDoor
   m_TagString: Untagged
@@ -423,19 +409,21 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &65490184224795520
-BoxCollider:
+--- !u!114 &4491505775137384581
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1803435338003192}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.49631053, y: 1.4747835, z: 0.028785199}
-  m_Center: {x: -0.24427637, y: 0.14915693, z: -0.0011045784}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42a3f1df3465fd042bf40c8b141ab12b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animationDuration: 1
+  maximumOpenedAngle: 135
+  otherHalf: {fileID: 1802545090086594}
 --- !u!1 &1962677989927716
 GameObject:
   m_ObjectHideFlags: 0
@@ -447,8 +435,8 @@ GameObject:
   - component: {fileID: 4137913354369424}
   - component: {fileID: 33923819606675154}
   - component: {fileID: 23590789087357968}
-  - component: {fileID: 64142478414144850}
-  m_Layer: 0
+  - component: {fileID: 357407803156298302}
+  m_Layer: 10
   m_Name: dfk_wardrobe_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -520,8 +508,8 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &64142478414144850
-MeshCollider:
+--- !u!65 &357407803156298302
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -530,7 +518,6 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: 21ef6551c3751344e80409de0a727bbc, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1.8, z: 0.5}
+  m_Center: {x: 0, y: 0.99, z: 0}

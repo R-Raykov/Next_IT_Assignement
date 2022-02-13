@@ -76,6 +76,9 @@ namespace UnityTemplateProjects
         [Tooltip("Whether or not to invert our Y axis for mouse input to rotation.")]
         public bool invertY = false;
 
+        private RaycastHit hit;
+
+
         void OnEnable()
         {
             m_TargetCameraState.SetFromTransform(transform);
@@ -176,6 +179,20 @@ namespace UnityTemplateProjects
             m_InterpolatingCameraState.LerpTowards(m_TargetCameraState, positionLerpPct, rotationLerpPct);
 
             m_InterpolatingCameraState.UpdateTransform(transform);
+
+            HandleInteraction();
+        }
+
+        private void HandleInteraction()
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                Ray _ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                if (Physics.Raycast(ray: _ray, out hit, 5, 1 << 10))
+                {
+                    hit.transform.GetComponentInChildren<IInteractable>()?.Interact();
+                }
+            }
         }
     }
 
