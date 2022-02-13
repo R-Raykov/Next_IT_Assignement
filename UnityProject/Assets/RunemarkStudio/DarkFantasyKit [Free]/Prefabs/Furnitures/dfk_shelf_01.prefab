@@ -11,12 +11,13 @@ GameObject:
   - component: {fileID: 4675272594081762}
   - component: {fileID: 33574123757464202}
   - component: {fileID: 23555079327153962}
+  - component: {fileID: -6668261709664137399}
   m_Layer: 0
   m_Name: dfk_shelf_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &4675272594081762
 Transform:
@@ -79,3 +80,15 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &-6668261709664137399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1940977867849830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fac355f2dfce894d8c83bbca73a08a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

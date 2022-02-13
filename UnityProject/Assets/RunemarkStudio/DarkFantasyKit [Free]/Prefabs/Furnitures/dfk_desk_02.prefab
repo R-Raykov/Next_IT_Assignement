@@ -16,7 +16,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &4250377390992930
 Transform:
@@ -91,12 +91,14 @@ GameObject:
   - component: {fileID: 33859630596116916}
   - component: {fileID: 23970240146409016}
   - component: {fileID: 64804371548625622}
+  - component: {fileID: 1204223358080290622}
+  - component: {fileID: 7341970054444799039}
   m_Layer: 0
   m_Name: dfk_desk_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &4265507469990348
 Transform:
@@ -174,3 +176,31 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: ecd24e9dde1549a44a3782bbec27d009, type: 3}
+--- !u!114 &1204223358080290622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1460113053511152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37c58c9c245173640840c7edf89e6bb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectsToGenerate:
+  - NumberOfObjects: 1
+    GenerateOnHeight: 0
+    Prefab: {fileID: 1338609483781932, guid: 81fba7e031514c140a9ba21c9edce8e8, type: 3}
+--- !u!114 &7341970054444799039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1460113053511152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fac355f2dfce894d8c83bbca73a08a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
