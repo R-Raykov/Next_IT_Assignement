@@ -12,12 +12,12 @@ GameObject:
   - component: {fileID: 33188347998686420}
   - component: {fileID: 23337132581754898}
   - component: {fileID: 65486989455097696}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: dfk_wall_01a
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &4198195060786464
 Transform:
