@@ -8,10 +8,9 @@ public class LargeObjectGenerator : MonoBehaviour, IGenerate
     private Vector3 startPos;
     private Transform parent;
 
-    public void Initialize(GeneratableObject pPrefab, Vector3 pStartPos, Transform pParent)
+    public void Initialize(GeneratableObject pPrefab, Transform pParent)
     {
         prefab = pPrefab;
-        //startPos = pStartPos;
         parent = pParent;
     }
 
@@ -22,21 +21,29 @@ public class LargeObjectGenerator : MonoBehaviour, IGenerate
         if(randomBlock >= 50)
         {
             GameObject _generatedObject = Instantiate(prefab.Prefab, parent);
+            
+            startPos = Vector3.zero;
 
-            if(prefab.GenerateOnHeight)
+            startPos.x = -1.0f;
+
+            if (prefab.GenerateOnHeight)
             {
-                startPos.y += Random.Range(1.5f, 2.5f);
+                startPos.y = Random.Range(1.5f, 2.5f);
             }
 
             Renderer _renderer = prefab.Prefab.GetComponent<Renderer>();
 
-            startPos.z += _renderer ? _renderer.bounds.size.z : 0.15f;
+            if(prefab.Name.Equals("Shelf"))
+                startPos.z = _renderer ? _renderer.bounds.extents.x : 0.15f;
+            else
+                startPos.z = _renderer ? _renderer.bounds.extents.z : 0.15f;
+
 
             _generatedObject.transform.localPosition = startPos;
 
             _generatedObject.transform.rotation = parent.rotation;
 
-            if(prefab.Prefab.name.Contains("bed"))
+            if(prefab.Name.Equals("Bed"))
             {
                 _generatedObject.transform.eulerAngles += new Vector3(0, 90, 0);
             }

@@ -189,9 +189,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectsToGenerate:
-  - NumberOfObjects: 1
-    GenerateOnHeight: 0
+  - GenerateOnHeight: 0
     Prefab: {fileID: 1338609483781932, guid: 81fba7e031514c140a9ba21c9edce8e8, type: 3}
+    Name: Chair
+  - GenerateOnHeight: 1
+    Prefab: {fileID: 1165959372330002, guid: b29ecf6c6d8bc074fb2fa0418d400134, type: 3}
+    Name: Crystal
+  - GenerateOnHeight: 1
+    Prefab: {fileID: 1507473793353128, guid: 504734b234267184a82f53a6f9f390db, type: 3}
+    Name: Candle
 --- !u!114 &7341970054444799039
 MonoBehaviour:
   m_ObjectHideFlags: 0

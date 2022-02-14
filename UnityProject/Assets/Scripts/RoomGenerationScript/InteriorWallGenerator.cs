@@ -32,7 +32,7 @@ public class InteriorWallGenerator : MonoBehaviour, IGenerate
         switch (typeOfWall)
         {
             case WallType.Separator:
-                int _dirToSeparate = GeneratorManager.Instance.GetVerticalLenght < GeneratorManager.Instance.GetHorizontalLenght ?
+                int _dirToSeparate = GeneratorManager.Instance.GetVerticalLenght <= GeneratorManager.Instance.GetHorizontalLenght ?
                     GeneratorManager.Instance.GetVerticalLenght : GeneratorManager.Instance.GetHorizontalLenght;
 
                 Renderer _wallRenderer = prefab.GetComponent<Renderer>();
@@ -41,17 +41,35 @@ public class InteriorWallGenerator : MonoBehaviour, IGenerate
                 for (int i = 0; i < _dirToSeparate; i++)
                 {
 
-                    GameObject newWall = Instantiate(prefab, new Vector3((i * _wallOffset), 0.0f, startPos.z), Quaternion.Euler(startRot));
+                    Vector3 _newPos = Vector3.zero;
+
+                    if(_dirToSeparate == GeneratorManager.Instance.GetHorizontalLenght)
+                    {
+                        _newPos = new Vector3((i * _wallOffset), 0.0f, startPos.z);
+                    }
+                    else if(_dirToSeparate == GeneratorManager.Instance.GetVerticalLenght)
+                    {
+                        _newPos = new Vector3(startPos.x, 0.0f, (i * _wallOffset));
+                    }
+
+                    GameObject newWall = Instantiate(prefab, _newPos, Quaternion.Euler(startRot));
 
                     GeneratorManager.Instance.SeparatingWalls.Add(newWall);
-                    
-                                       
-                    if (startRot.y == 0)
+
+
+                    if (Mathf.RoundToInt(startRot.y) == 0)
                     {
-                        Vector3 _newPos = newWall.transform.position;
+                        _newPos = newWall.transform.localPosition;
                         _newPos.x += _wallOffset;
 
-                        newWall.transform.position = _newPos;
+                        newWall.transform.localPosition = _newPos;
+                    }
+                    else if (Mathf.RoundToInt(startRot.y) == 270)
+                    {
+                        _newPos = newWall.transform.localPosition;
+                        _newPos.z += _wallOffset;
+
+                        newWall.transform.localPosition = _newPos;
                     }
                 }
 

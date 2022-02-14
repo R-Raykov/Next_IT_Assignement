@@ -6,7 +6,9 @@ public class GenerateRoom : MonoBehaviour, IGenerate
 {
     [SerializeField] private GameObject wallPrefab;
     [SerializeField] private GameObject groundPrefab;
+    [SerializeField] private GameObject roofPrefab;
     [SerializeField] private GameObject doorPrefab;
+    [SerializeField] private GameObject windowPrefab;
 
     private void Start()
     {
@@ -29,6 +31,9 @@ public class GenerateRoom : MonoBehaviour, IGenerate
         {
             for (int h = 0; h <= GeneratorManager.Instance.GetVerticalLenght; h++)
             {
+                Vector3 _pivotOffset = Vector3.zero;
+                _pivotOffset.x = -1;
+
                 if (w == 0 || h == 0 ||
                     w == GeneratorManager.Instance.GetHorizontalLenght || h == GeneratorManager.Instance.GetVerticalLenght)
                 {
@@ -52,22 +57,44 @@ public class GenerateRoom : MonoBehaviour, IGenerate
                         _newRot.y = 0;
                     }
 
-                    GameObject newWall = Instantiate(wallPrefab, new Vector3(w * _wallOffset, 0, h * _wallOffset),
+                    GameObject _newWall = Instantiate(wallPrefab, new Vector3(w * _wallOffset, 0, h * _wallOffset),
                                                         Quaternion.Euler(_newRot), _wallParent.transform);
 
-                    if (h == GeneratorManager.Instance.GetVerticalLenght / 2)
+                    if ((h == GeneratorManager.Instance.GetVerticalLenght / 2 &&
+                        GeneratorManager.Instance.GetVerticalLenght >= GeneratorManager.Instance.GetHorizontalLenght) ||
+                        (w == GeneratorManager.Instance.GetHorizontalLenght / 2 &&
+                        GeneratorManager.Instance.GetVerticalLenght < GeneratorManager.Instance.GetHorizontalLenght))
                     {
                         InteriorWallGenerator _wallGenerator = new InteriorWallGenerator();
-                        _newRot.y += 90; 
-                        _wallGenerator.Initialize(wallPrefab, newWall.transform.position, _newRot);
+                        _newRot.y += 90;
+                        _wallGenerator.Initialize(wallPrefab, _newWall.transform.position, _newRot);
                         _wallGenerator.Generate();
                     }
 
+                    else
+                    {
+                        int _rngWindow = Random.Range(0, 100);
+                        if (_rngWindow > 90)
+                        {
+                            GenerateWindow(_newWall.transform.position, _newWall.transform.rotation);
+                            Destroy(_newWall);
+                        }
+                        else
+                        {
+                            LargeObjectGenerator _randomItem = new LargeObjectGenerator();
+                            GeneratableObject _itemToGenerate = GeneratorManager.Instance.GenerateRandomItem();
 
-                    LargeObjectGenerator _randomItem = new LargeObjectGenerator();
 
-                    _randomItem.Initialize(GenerateRandomItem(), newWall.transform.position, newWall.transform);
-                    _randomItem.Generate();
+                            if (!_itemToGenerate.GenerateOnHeight)
+                                _pivotOffset.z = -1;
+
+                            _randomItem.Initialize(_itemToGenerate, _newWall.transform);
+                            _randomItem.Generate();
+
+                            _randomItem.Initialize(GeneratorManager.Instance.GetItem("Shelf"), _newWall.transform);
+                            _randomItem.Generate();
+                        }
+                    }
 
                     if (w == 0 || h == 0)
                         continue;
@@ -75,39 +102,60 @@ public class GenerateRoom : MonoBehaviour, IGenerate
                 }
 
 
-                GameObject newGround = Instantiate(groundPrefab, new Vector3(w * _groundOffset, 0, h * _groundOffset),
+                GameObject _newGround = Instantiate(groundPrefab, new Vector3(w * _groundOffset, 0, h * _groundOffset),
                                                         Quaternion.identity, _floorParent.transform);
 
+                Instantiate(roofPrefab, new Vector3(w * _groundOffset - 1.25f, _wallRenderer.bounds.size.y, h * _groundOffset - 1.25f),
+                                Quaternion.identity, _floorParent.transform);
+
+                int _rng = Random.Range(0, 100);
+                if (_rng > 75)
+                {
+                    GameObject _carpet = Instantiate(GeneratorManager.Instance.GetItem("Carpet").Prefab, _newGround.transform);
+                    _pivotOffset.z = -1;
+                    _carpet.transform.localPosition = _pivotOffset;
+                    _carpet.transform.eulerAngles = _rng > 88 ? Vector3.zero : new Vector3(0, 90, 0);
+                }
             }
         }
 
-        int _separatingWallDoor = Random.Range(GeneratorManager.Instance.SeparatingWalls.Count/2 + 2, 
-            GeneratorManager.Instance.SeparatingWalls.Count/2 + GeneratorManager.Instance.GetHorizontalLenght - 1);
+        int _dirToSeparate = GeneratorManager.Instance.GetVerticalLenght <= GeneratorManager.Instance.GetHorizontalLenght ?
+                                GeneratorManager.Instance.GetVerticalLenght : GeneratorManager.Instance.GetHorizontalLenght;
+
+        int _separatingWallDoor = Random.Range(GeneratorManager.Instance.SeparatingWalls.Count/2, 
+            GeneratorManager.Instance.SeparatingWalls.Count/2 + _dirToSeparate);
 
         GeneratorManager.Instance.SeparatingWalls[_separatingWallDoor].SetActive(false);
-        GeneratorManager.Instance.SeparatingWalls[_separatingWallDoor - GeneratorManager.Instance.GetHorizontalLenght].SetActive(false);
+        GeneratorManager.Instance.SeparatingWalls[_separatingWallDoor - _dirToSeparate].SetActive(false);
 
         Vector3 _doorPos = GeneratorManager.Instance.SeparatingWalls[_separatingWallDoor].transform.position;
-        _doorPos.x -= _wallOffset / 2;
-        _doorPos.z += _wallRenderer.bounds.extents.z;
+
+        if (_dirToSeparate == GeneratorManager.Instance.GetHorizontalLenght)
+        {
+            _doorPos.x -= _wallOffset / 2;
+            _doorPos.z += _wallRenderer.bounds.extents.z;
+        }
+        else if (_dirToSeparate == GeneratorManager.Instance.GetVerticalLenght)
+        {
+            _doorPos.z -= _wallOffset / 2;
+            _doorPos.x -= _wallRenderer.bounds.extents.z;
+        }
+
 
         GenerateDoor(_doorPos, GeneratorManager.Instance.SeparatingWalls[_separatingWallDoor].transform.rotation);
-
-    }
-
-    private GeneratableObject GenerateRandomItem()
-    {
-        int _count = GeneratorManager.Instance.GetGenerators.Count;
-
-        int _rng = Random.Range(0, _count);
-
-        GeneratableObject generatable = GeneratorManager.Instance.GetGenerators[_rng];
-
-        return generatable;
     }
 
     private void GenerateDoor(Vector3 pPos, Quaternion pRotation)
     {
         Instantiate(doorPrefab, pPos, pRotation);
     }
+    private void GenerateWindow(Vector3 pPos, Quaternion pRotation)
+    {
+        GameObject _window = Instantiate(windowPrefab, pPos, pRotation);
+        float _offset = _window.GetComponent<Renderer>().bounds.extents.z;
+        Vector3 _newPos = _window.transform.position;
+        _newPos -= _window.transform.right * _offset;
+        _window.transform.position = _newPos;
+    }
+
 }

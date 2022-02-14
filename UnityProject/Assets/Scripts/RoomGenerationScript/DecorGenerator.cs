@@ -6,39 +6,49 @@ public class DecorGenerator : MonoBehaviour, IGenerate
 {
     [SerializeField] private List<GeneratableObject> objectsToGenerate;
 
-    private void Start()
-    {
-        //Generate();
-    }
+    [SerializeField] private bool isShelf;
 
     public void Generate()
     {
         foreach (GeneratableObject generatable in objectsToGenerate)
         {
-            for (int i = 0; i < generatable.NumberOfObjects; i++)
+            if (generatable.GenerateOnHeight)
             {
-                if (generatable.GenerateOnHeight)
-                {
-                    GameObject newObject = Instantiate(generatable.Prefab, transform);
+                int _generationThreshhold = Random.Range(0, 100);
+                if (_generationThreshhold < 70)
+                    return;
 
-                    Vector3 _newPos = transform.forward * Random.Range(0.5f, 1.5f);
-                    float _renderBounds = GetComponent<Renderer>().bounds.size.x;
-                    _newPos.x = Random.Range(-_renderBounds, _renderBounds);
+                GameObject newObject = Instantiate(generatable.Prefab, transform);
+                Vector3 _newPos = Vector3.zero;
+                Vector3 _renderBounds = GetComponent<Renderer>().bounds.extents;
+                
+                _newPos.y = _renderBounds.y;
 
-                    newObject.transform.localPosition = _newPos;
-                    newObject.transform.LookAt(transform, Vector3.up);
+                if (!isShelf)
+                { 
+                    _newPos.x = Random.Range(-_renderBounds.x, _renderBounds.x);
+                    _newPos.z = Random.Range(-_renderBounds.z, _renderBounds.z);
                 }
                 else
                 {
-                    GameObject newObject = Instantiate(generatable.Prefab, transform);
-
-                    Vector3 _newPos = transform.forward * Random.Range(0.5f, 1.5f);
-                    float _renderBounds = GetComponent<Renderer>().bounds.size.x;
-                    _newPos.x = Random.Range(-_renderBounds, _renderBounds);
-
-                    newObject.transform.localPosition = _newPos;
-                    newObject.transform.LookAt(transform, Vector3.up);
+                    _newPos.z = Random.Range(-_renderBounds.x, _renderBounds.x);
+                    _newPos.x = Random.Range(-_renderBounds.z, _renderBounds.z);
                 }
+
+                newObject.transform.localPosition = _newPos;
+
+                break;
+            }
+            else
+            {
+                GameObject newObject = Instantiate(generatable.Prefab, transform);
+
+                Vector3 _newPos = transform.forward * Random.Range(0.5f, 1.5f);
+                float _renderBounds = GetComponent<Renderer>().bounds.extents.x;
+                _newPos.x = Random.Range(-_renderBounds, _renderBounds);
+
+                newObject.transform.localPosition = _newPos;
+                newObject.transform.LookAt(transform, Vector3.up);
             }
         }
     }
