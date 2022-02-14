@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// Dragable object such as the chair
+/// </summary>
 public class DragObject : InteractableObject
 {
     private Vector3 startPos;
@@ -18,6 +20,8 @@ public class DragObject : InteractableObject
     {
         float _currentTime = 0.0f;
 
+        //Determine final position
+
         Vector3 _finalPosition = startPos;
         Quaternion _finalRotation = startRotation;
 
@@ -33,10 +37,11 @@ public class DragObject : InteractableObject
 
         isOpen = !isOpen;
 
+        //Interpolate to the final position and rotation
         while (_currentTime < animationDuration)
         {
             transform.localPosition = Vector3.Lerp(transform.localPosition, _finalPosition, _currentTime / animationDuration);
-            transform.localRotation = Quaternion.Lerp(transform.localRotation, _finalRotation, _currentTime / animationDuration);
+            transform.localRotation = Quaternion.Slerp(transform.localRotation, _finalRotation, _currentTime / animationDuration);
 
             _currentTime += Time.deltaTime;
 

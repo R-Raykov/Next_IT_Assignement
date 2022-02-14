@@ -106,7 +106,6 @@ GameObject:
   - component: {fileID: 33821127561536528}
   - component: {fileID: 23036614175512750}
   - component: {fileID: 64451708317347484}
-  - component: {fileID: 8451436411920747171}
   m_Layer: 0
   m_Name: dfk_bed_single_02
   m_TagString: Untagged
@@ -191,18 +190,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300006, guid: 9b6990e5e09f8e44289508e6499ad303, type: 3}
---- !u!114 &8451436411920747171
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1933050718119278}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4fac355f2dfce894d8c83bbca73a08a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1936785005535126
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DecorGenerator : MonoBehaviour, IGenerate
+public class DecorGenerator : MonoBehaviour, IGeneratable
 {
     [SerializeField] private List<GeneratableObject> objectsToGenerate;
 
@@ -12,10 +12,10 @@ public class DecorGenerator : MonoBehaviour, IGenerate
     {
         foreach (GeneratableObject generatable in objectsToGenerate)
         {
+            //This is used to add candels to surfaces
             if (generatable.GenerateOnHeight)
             {
-                int _generationThreshhold = Random.Range(0, 100);
-                if (_generationThreshhold < 70)
+                if (GameManager.Instance.GetRandomNumber() < 60)
                     return;
 
                 GameObject newObject = Instantiate(generatable.Prefab, transform);
@@ -24,6 +24,7 @@ public class DecorGenerator : MonoBehaviour, IGenerate
                 
                 _newPos.y = _renderBounds.y;
 
+                // make sure it randomly places it within the extents of the renderer
                 if (!isShelf)
                 { 
                     _newPos.x = Random.Range(-_renderBounds.x, _renderBounds.x);
@@ -41,6 +42,7 @@ public class DecorGenerator : MonoBehaviour, IGenerate
             }
             else
             {
+                // this is used just to generate the chair for the desk
                 GameObject newObject = Instantiate(generatable.Prefab, transform);
 
                 Vector3 _newPos = transform.forward * Random.Range(0.5f, 1.5f);

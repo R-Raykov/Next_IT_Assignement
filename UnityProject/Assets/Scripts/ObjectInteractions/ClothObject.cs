@@ -18,6 +18,7 @@ public class ClothObject : InteractableObject
     {
         float _currentTime = 0.0f;
 
+        //Determine final scale and position
         Vector3 _finalPosition = startPos;
         Vector3 _finalScale = startScale;
 
@@ -28,6 +29,8 @@ public class ClothObject : InteractableObject
         }
 
         isOpen = !isOpen;
+
+        //Lerp
 
         while (_currentTime < animationDuration)
         {

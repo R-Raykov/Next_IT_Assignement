@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IGenerate 
+public interface IGeneratable 
 {
     void Generate();
 }

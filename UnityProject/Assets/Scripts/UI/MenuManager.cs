@@ -23,8 +23,6 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private GameObject staticCamera;
     [SerializeField] private GameObject menuCamera;
 
-    [SerializeField] private GameObject canvas;
-
 
     private void Awake()
     {
@@ -50,12 +48,19 @@ public class MenuManager : MonoBehaviour
         OnGameStart -= SetCorrectCameras;
     }
 
+    /// <summary>
+    /// Change the current UI screen
+    /// </summary>
+    /// <param name="pScreen">Name of new screen</param>
     public void ChangeScreen(string pScreen)
     {
         if (OnShowScreen != null)
             OnShowScreen.Invoke(pScreen);
     }
 
+    /// <summary>
+    /// Shows the last active screen
+    /// </summary>
     public void ShowLastScreen()
     {
         ChangeScreen(LastScreen);
@@ -68,9 +73,12 @@ public class MenuManager : MonoBehaviour
             OnGameStart.Invoke();
     }
 
+    /// <summary>
+    /// Change between static camera and free move camera
+    /// </summary>
     private void SetCorrectCameras()
     {
-        if(GameManager.Instance.FPSCamera)
+        if(GameManager.Instance.FreeCamera)
         {
             menuCamera.SetActive(false);
             fpsCamera.SetActive(true);
@@ -84,6 +92,9 @@ public class MenuManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Quit application
+    /// </summary>
     public void Quit()
     {
 #if UNITY_EDITOR

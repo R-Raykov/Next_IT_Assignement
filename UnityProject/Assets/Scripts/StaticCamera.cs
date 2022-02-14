@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// The interactor for the static camera
+/// The same implementation is added to the example "SimpleCamera" that comes with the HDRP package
+/// </summary>
+
 public class StaticCamera : MonoBehaviour
 {
     private RaycastHit hit;
@@ -11,6 +16,10 @@ public class StaticCamera : MonoBehaviour
         HandleInteraction();
     }
 
+    /// <summary>
+    /// Shoot a raycast that collides with the interactable layer 
+    /// If there are any objects that implement the IInteractable interface call their implementation of it
+    /// </summary>
     private void HandleInteraction()
     {
         if (Input.GetMouseButtonDown(0))

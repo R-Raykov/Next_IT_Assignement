@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 33022042632686320}
   - component: {fileID: 23693553685715082}
   - component: {fileID: 136918826348672182}
-  - component: {fileID: -6814476812502120163}
   m_Layer: 0
   m_Name: dfk_chest_02_closed
   m_TagString: Untagged
@@ -95,15 +94,3 @@ CapsuleCollider:
   m_Height: 1.0237745
   m_Direction: 0
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-6814476812502120163
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1797334555253888}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4fac355f2dfce894d8c83bbca73a08a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
